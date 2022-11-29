@@ -14,7 +14,7 @@ namespace TestTaskForNB.Models
         [Required]
         public string PostText { get; set; } = string.Empty;
         [Required]
-        public DateTime CreatingDate { get; set; }
+        public DateTime PostCreatingDate { get; set; }
         [Required]
         public string PostRubrics { get; set; } = string.Empty;
     }
