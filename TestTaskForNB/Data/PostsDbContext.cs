@@ -11,6 +11,7 @@ namespace TestTaskForNB.Data
     public class PostsDbContext : DbContext
     {
         public DbSet<Post> Posts => Set<Post>();
+        public DbSet<Rubric> Rubrics => Set<Rubric>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

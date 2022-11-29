@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestTaskForNB.Data;
 
@@ -11,9 +12,11 @@ using TestTaskForNB.Data;
 namespace TestTaskForNB.Migrations
 {
     [DbContext(typeof(PostsDbContext))]
-    partial class PostsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221129222007_Added rubric model")]
+    partial class Addedrubricmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace TestTaskForNB.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("PostRubric", b =>
-                {
-                    b.Property<int>("PostRubricsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostRubricsId", "PostsId");
-
-                    b.HasIndex("PostsId");
-
-                    b.ToTable("PostRubric");
-                });
 
             modelBuilder.Entity("TestTaskForNB.Models.Post", b =>
                 {
@@ -65,28 +53,30 @@ namespace TestTaskForNB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RubricName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PostId");
+
                     b.ToTable("Rubrics");
                 });
 
-            modelBuilder.Entity("PostRubric", b =>
+            modelBuilder.Entity("TestTaskForNB.Models.Rubric", b =>
                 {
-                    b.HasOne("TestTaskForNB.Models.Rubric", null)
-                        .WithMany()
-                        .HasForeignKey("PostRubricsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TestTaskForNB.Models.Post", null)
-                        .WithMany()
-                        .HasForeignKey("PostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("PostRubrics")
+                        .HasForeignKey("PostId");
+                });
+
+            modelBuilder.Entity("TestTaskForNB.Models.Post", b =>
+                {
+                    b.Navigation("PostRubrics");
                 });
 #pragma warning restore 612, 618
         }

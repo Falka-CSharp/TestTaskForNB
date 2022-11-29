@@ -23,32 +23,32 @@ namespace TestTaskForNB.Data
             {
                 //Reading csv file to get example data
                 //***************
-                try
-                {
-                    List<CsvPosts> posts = new List<CsvPosts>();
-                    using (var reader = new StreamReader(filename))
-                    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                    {
-                        posts = csv.GetRecords<CsvPosts>().ToList();
-                    }
+                //try
+                //{
+                //    List<CsvPosts> posts = new List<CsvPosts>();
+                //    using (var reader = new StreamReader(filename))
+                //    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                //    {
+                //        posts = csv.GetRecords<CsvPosts>().ToList();
+                //    }
 
-                    if (posts.Any())
-                    {
-                        foreach(CsvPosts post in posts)
-                        {
-                            context.Posts.Add(new Post() { 
-                                PostText=post.text,
-                                PostCreatingDate=post.created_date,
-                                PostRubrics=post.rubrics});
-                        }
-                    }
-                }
-                catch (Exception err)
-                {
-                    Console.WriteLine($"Failed to load seed data!\n{err.Message}");
-                }
-                //***************
-                context.SaveChanges();
+                //    if (posts.Any())
+                //    {
+                //        foreach(CsvPosts post in posts)
+                //        {
+                //            context.Posts.Add(new Post() { 
+                //                PostText=post.text,
+                //                PostCreatingDate=post.created_date,
+                //                PostRubrics=post.rubrics});
+                //        }
+                //    }
+                //}
+                //catch (Exception err)
+                //{
+                //    Console.WriteLine($"Failed to load seed data!\n{err.Message}");
+                //}
+                ////***************
+                //context.SaveChanges();
             }
         }
 

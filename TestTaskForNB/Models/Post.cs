@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestTaskForNB.Models
 {
@@ -16,6 +18,6 @@ namespace TestTaskForNB.Models
         [Required]
         public DateTime PostCreatingDate { get; set; }
         [Required]
-        public string PostRubrics { get; set; } = string.Empty;
+        public List<Rubric> PostRubrics { get; set; } = new List<Rubric>();
     }
 }
