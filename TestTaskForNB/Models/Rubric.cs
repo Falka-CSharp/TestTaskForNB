@@ -9,9 +9,10 @@ namespace TestTaskForNB.Models
 {
     public class Rubric
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         public string RubricName { get; set; } = string.Empty;
-        public List<Post> Posts { get; set; } = new List<Post>();
+        public virtual List<Post>? Posts { get; set; }
     }
 }

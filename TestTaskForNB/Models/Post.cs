@@ -12,12 +12,13 @@ namespace TestTaskForNB.Models
 {
     public class Post
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         public string PostText { get; set; } = string.Empty;
         [Required]
         public DateTime PostCreatingDate { get; set; }
         [Required]
-        public List<Rubric> PostRubrics { get; set; } = new List<Rubric>();
+        public virtual List<Rubric>? PostRubrics { get; set; }
     }
 }
