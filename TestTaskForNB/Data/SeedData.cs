@@ -40,8 +40,8 @@ namespace TestTaskForNB.Data
                         //and creating object with them
                         Post postToAdd = new Post()
                         {
-                            PostText = posts[0].text,
-                            PostCreatingDate = posts[0].created_date,
+                            PostText = post.text,
+                            PostCreatingDate = post.created_date,
                             PostRubrics = new List<Rubric>()
                         };
 
