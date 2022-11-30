@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Globalization;
 using TestTaskForNB.Data;
 using TestTaskForNB.Models;
 namespace TestTaskForNB
@@ -33,12 +34,15 @@ namespace TestTaskForNB
         }
         static public void Main()
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.InputEncoding = System.Text.Encoding.Unicode;
+
             PostsDbContext postsDbContext = new PostsDbContext();
-            //Delet records section
+
+
+            //Delete records section
             //Console.WriteLine("Deleting records...");
-            //foreach(var item in postsDbContext.Posts)
+            //foreach (var item in postsDbContext.Posts)
             //{
             //    postsDbContext.Posts.Remove(item);
             //}
@@ -46,8 +50,10 @@ namespace TestTaskForNB
             //{
             //    postsDbContext.Rubrics.Remove(item);
             //}
-            postsDbContext.SaveChanges();
-            Console.WriteLine("Deleted records");
+            //postsDbContext.SaveChanges();
+            //Console.WriteLine("Deleted records");
+
+
             //-------------------
             Thread ldThread = new Thread(new ParameterizedThreadStart(LoadingIconThread));
             ldThread.Start("Seeding data");
@@ -65,27 +71,26 @@ namespace TestTaskForNB
             if (request != null)
             {
                 List<Post> results = postsDbContext.Posts.Where(p => p.PostText.Contains(request))
-                   // .Include(p => p.PostRubrics)
-                    //.OrderBy(p=>p.PostCreatingDate)
-                    //.Take(20)
+                     .Include(p => p.PostRubrics)
+                    .OrderBy(p=>p.PostCreatingDate)
+                    .Take(20)
                     .ToList();
-                Console.WriteLine(results.Count);
                 for (int i = 0; i < results.Count; i++)
                 {
-                    Console.WriteLine($"{i+1} " + results[i].PostCreatingDate);
+                    Console.WriteLine($"{i + 1} -> " + results[i].PostCreatingDate);
                     if (results[i].PostRubrics != null)
                     {
                         Console.WriteLine("--Rubrics--");
-                        foreach (Rubric rb in results[i].PostRubrics)
+                        foreach (Rubric rb in results[i].PostRubrics ?? new List<Rubric>())
                         {
                             Console.WriteLine($"> {rb.RubricName}");
                         }
                     }
                     Console.WriteLine("-------------------");
-                    
+
                     Console.WriteLine(results[i].PostText);
                     Console.WriteLine("-------------------");
-                    
+
                 }
             }
             else
