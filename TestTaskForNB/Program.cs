@@ -96,8 +96,8 @@ namespace TestTaskForNB
         static public void ShowMenu()
         {
             Console.WriteLine("------Menu------");
-            Console.WriteLine("1 - Find post by text");
-            Console.WriteLine("2 - Delete post by id");
+            Console.WriteLine("1 - Find a post by text");
+            Console.WriteLine("2 - Delete a post by id");
             Console.WriteLine("0 - Exit");
             Console.WriteLine("----------------");
         }
