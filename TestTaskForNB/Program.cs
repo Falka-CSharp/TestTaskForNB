@@ -86,7 +86,11 @@ namespace TestTaskForNB
        
         static public void DeletePostMenuItem(PostsDbContext postsDbContext)
         {
-
+            Console.Write("Enter post id: ");
+            int postId = int.Parse(Console.ReadLine() ?? "-1");
+            int rowsAffected = postsDbContext.Posts.Where(p => p.Id == postId).ExecuteDelete();
+            postsDbContext.SaveChanges();
+            Console.WriteLine($"Deleted! Rows affected: {rowsAffected}");
         }
 
         static public void ShowMenu()
